@@ -1,6 +1,5 @@
 import 'package:everything_danle/header/header.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +9,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool reachedTop = true;
+  List<String> texts;
+
+  @override
+  void initState() {
+    texts = _splitMarkdownText(markdownSource);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +43,12 @@ class _HomePageState extends State<HomePage> {
                   }
                   return false;
                 },
-                child: SingleChildScrollView(
+                child: ListView.builder(
                   padding: EdgeInsets.all(12),
-                  child: MarkdownBody(data: markdownSource),
+                  itemBuilder: (_, index) {
+                    return MarkdownBody(data: texts[index]);
+                  },
+                  itemCount: texts.length,
                 ),
               ),
             ),
@@ -47,6 +56,18 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  List<String> _splitMarkdownText(String markdownSource) {
+    int maxLength = 400;
+    final result = <String>[];
+    for (int i = 0; i < markdownSource.length; i += maxLength) {
+      int endIndex = i + maxLength >= markdownSource.length
+          ? markdownSource.length
+          : i + maxLength;
+      result.add(markdownSource.substring(i, endIndex));
+    }
+    return result;
   }
 }
 

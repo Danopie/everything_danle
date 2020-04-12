@@ -2,31 +2,73 @@ import 'package:everything_danle/res/text.dart';
 import 'package:flutter/material.dart';
 
 class AppHeader extends StatelessWidget {
+  final bool hasShadow;
+
+  const AppHeader({Key key, this.hasShadow}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      pinned: true,
-      elevation: 4,
-      forceElevated: true,
-      backgroundColor: Colors.white,
-      title: MyLogo(),
-      actions: [
-        HeaderAction(
-          title: "Home",
-        ),
-        HeaderAction(
-          title: "Blog",
-        ),
-        HeaderAction(
-          title: "Resume",
-        ),
-        HeaderAction(
-          title: "About",
-        ),
-        HeaderAction(
-          title: "Projects",
-        ),
-      ],
+    return AnimatedContainer(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: hasShadow
+              ? [
+                  BoxShadow(
+                      color: Colors.black26, spreadRadius: 4, blurRadius: 4)
+                ]
+              : null),
+      padding: EdgeInsets.all(12),
+      duration: Duration(milliseconds: 250),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          MyLogo(),
+          Expanded(
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final items = [
+                  "Home",
+                  "Blog",
+                  "Resume",
+                  "Projects",
+                  "About",
+                ];
+
+                final canShowAllActions =
+                    constraints.maxWidth > HeaderAction.WIDTH * items.length;
+
+                if (canShowAllActions) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: items
+                        .map((e) => HeaderAction(
+                              title: e,
+                            ))
+                        .toList(),
+                  );
+                } else {
+                  return Container(
+                    alignment: Alignment.centerRight,
+                    child: PopupMenuButton(
+                      icon: Icon(Icons.menu),
+                      itemBuilder: (BuildContext context) {
+                        return items
+                            .map((e) => PopupMenuItem(
+                                  child: Text(
+                                    e,
+                                    style: TextStyles.text.medium.s(16),
+                                  ),
+                                ))
+                            .toList();
+                      },
+                    ),
+                  );
+                }
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -42,6 +84,8 @@ class MyLogo extends StatelessWidget {
 }
 
 class HeaderAction extends StatefulWidget {
+  static const double WIDTH = 80;
+
   final String title;
 
   const HeaderAction({Key key, this.title}) : super(key: key);
@@ -67,8 +111,9 @@ class _HeaderActionState extends State<HeaderAction> {
         });
       },
       child: AnimatedContainer(
+        width: HeaderAction.WIDTH,
         duration: Duration(milliseconds: 160),
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(vertical: 16),
         color: shouldHighlight ? Colors.grey[200] : null,
         alignment: Alignment.center,
         child: Text(

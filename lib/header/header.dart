@@ -3,6 +3,7 @@ import 'package:everything_danle/res/links.dart';
 import 'package:everything_danle/res/text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:html' as html;
 
 class AppHeader extends StatelessWidget {
   static const double HEIGHT = 60;
@@ -97,9 +98,14 @@ class AppHeader extends StatelessWidget {
 class MyLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text(
-      "Dan Le",
-      style: TextStyles.text.bold.s(26),
+    return GestureDetector(
+      onTap: (){
+        html.window.location.reload();
+      },
+      child: Image.asset(
+        "asset/app_logo.jpg",
+        height: 40,
+      ),
     );
   }
 }

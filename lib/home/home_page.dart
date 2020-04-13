@@ -4,6 +4,7 @@ import 'package:everything_danle/header/header.dart';
 import 'package:everything_danle/res/links.dart';
 import 'package:everything_danle/res/text.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -130,38 +131,44 @@ class IntroductionWords extends StatelessWidget {
       children: [
         Text(
           "MY NAME IS",
-          style: TextStyles.text.s(14),
+          style: GoogleFonts.arvo(textStyle: TextStyles.text.s(14)),
         ),
         Container(
-          height: 8,
+          height: 10,
         ),
         Text(
           "LÊ DÂN",
-          style: TextStyles.text.superBold.s(54),
+          style: GoogleFonts.arvo(
+              textStyle: TextStyles.text.s(48)),
         ),
         Container(
-          height: 8,
+          height: 10,
         ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              "I'm a",
-              style: TextStyles.text.medium.s(24),
-            ),
-            Container(
-              width: 12,
-            ),
-            FadeAnimatedTextKit(
-                isRepeatingAnimation: true,
-                totalRepeatCount: 999,
-                duration: Duration(seconds: 2),
-                text: ["Mobile Developer", "Flutter Enthusiast"],
-                textStyle: TextStyles.text.superBold.s(24).underline,
-                textAlign: TextAlign.start,
-                alignment: AlignmentDirectional.topStart // or Alignment.topLeft
-                ),
-          ],
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                "I'm a",
+                style: GoogleFonts.arvo(
+                    textStyle: TextStyles.text.medium.s(18)),
+              ),
+              Container(
+                width: 8,
+              ),
+              FadeAnimatedTextKit(
+                  isRepeatingAnimation: true,
+                  totalRepeatCount: 999,
+                  duration: Duration(seconds: 2),
+                  text: ["Mobile Developer", "Flutter Enthusiast"],
+                  textStyle: GoogleFonts.arvo(
+                      textStyle: TextStyles.text.bold.s(18).underline),
+                  textAlign: TextAlign.start,
+                  alignment: AlignmentDirectional.topStart // or Alignment.topLeft
+                  ),
+            ],
+          ),
         ),
       ],
     );

@@ -7,7 +7,7 @@ class TextStyles {
 
 extension TextWeight on TextStyle {
   TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
-  TextStyle get superBold => copyWith(fontWeight: FontWeight.w900);
+  TextStyle get superBold => copyWith(fontWeight: FontWeight.w800);
   TextStyle get medium => copyWith(fontWeight: FontWeight.w500);
   TextStyle get normal => copyWith(fontWeight: FontWeight.normal);
   TextStyle get light => copyWith(fontWeight: FontWeight.w300);

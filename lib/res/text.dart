@@ -10,6 +10,7 @@ extension TextWeight on TextStyle {
   TextStyle get superBold => copyWith(fontWeight: FontWeight.w900);
   TextStyle get medium => copyWith(fontWeight: FontWeight.w500);
   TextStyle get normal => copyWith(fontWeight: FontWeight.normal);
+  TextStyle get light => copyWith(fontWeight: FontWeight.w300);
 }
 
 extension TextColor on TextStyle {

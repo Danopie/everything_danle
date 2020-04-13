@@ -1,5 +1,8 @@
+import 'package:everything_danle/res/dimen.dart';
+import 'package:everything_danle/res/links.dart';
 import 'package:everything_danle/res/text.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppHeader extends StatelessWidget {
   static const double HEIGHT = 60;
@@ -27,7 +30,7 @@ class AppHeader extends StatelessWidget {
         Container(
           padding: EdgeInsets.fromLTRB(12, 4, 12, 8),
           child: Container(
-            constraints: BoxConstraints(maxWidth: 1200),
+            constraints: BoxConstraints(maxWidth: AssetDimens.appMaxWidth),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -36,13 +39,11 @@ class AppHeader extends StatelessWidget {
                   child: LayoutBuilder(
                     builder:
                         (BuildContext context, BoxConstraints constraints) {
-                      final items = [
-                        "Home",
-                        "Blog",
-                        "Resume",
-                        "Projects",
-                        "About",
-                      ];
+                      final items = {
+                        "Blog": AssetLinks.medium,
+                        "Resume": AssetLinks.linkedin,
+                        "Projects": AssetLinks.github,
+                      };
 
                       final canShowAllActions = constraints.maxWidth >
                           HeaderAction.WIDTH * items.length;
@@ -50,9 +51,10 @@ class AppHeader extends StatelessWidget {
                       if (canShowAllActions) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: items
+                          children: items.keys
                               .map((e) => HeaderAction(
                                     title: e,
+                                    link: items[e],
                                   ))
                               .toList(),
                         );
@@ -61,9 +63,15 @@ class AppHeader extends StatelessWidget {
                           alignment: Alignment.centerRight,
                           child: PopupMenuButton(
                             icon: Icon(Icons.menu),
+                            onSelected: (link) async {
+                              if (await canLaunch(link)) {
+                                launch(link);
+                              }
+                            },
                             itemBuilder: (BuildContext context) {
-                              return items
+                              return items.keys
                                   .map((e) => PopupMenuItem(
+                                        value: items[e],
                                         child: Text(
                                           e,
                                           style: TextStyles.text.medium.s(16),
@@ -100,8 +108,9 @@ class HeaderAction extends StatefulWidget {
   static const double WIDTH = 80;
 
   final String title;
+  final String link;
 
-  const HeaderAction({Key key, this.title}) : super(key: key);
+  const HeaderAction({Key key, this.title, this.link}) : super(key: key);
 
   @override
   _HeaderActionState createState() => _HeaderActionState();
@@ -123,15 +132,22 @@ class _HeaderActionState extends State<HeaderAction> {
           shouldHighlight = false;
         });
       },
-      child: AnimatedContainer(
-        width: HeaderAction.WIDTH,
-        duration: Duration(milliseconds: 160),
-        padding: EdgeInsets.symmetric(vertical: 16),
-        color: shouldHighlight ? Colors.grey[200] : null,
-        alignment: Alignment.center,
-        child: Text(
-          widget.title,
-          style: TextStyles.text.medium.s(16),
+      child: InkWell(
+        onTap: () async {
+          if (await canLaunch(widget.link)) {
+            launch(widget.link);
+          }
+        },
+        child: AnimatedContainer(
+          width: HeaderAction.WIDTH,
+          duration: Duration(milliseconds: 160),
+          padding: EdgeInsets.symmetric(vertical: 16),
+          color: shouldHighlight ? Colors.grey[200] : null,
+          alignment: Alignment.center,
+          child: Text(
+            widget.title,
+            style: TextStyles.text.medium.s(16),
+          ),
         ),
       ),
     );

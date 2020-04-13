@@ -1,4 +1,5 @@
 import 'package:everything_danle/header/header.dart';
+import 'package:everything_danle/res/dimen.dart';
 import 'package:flutter/material.dart';
 
 class BasePage extends StatefulWidget {
@@ -39,7 +40,7 @@ class _BasePageState extends State<BasePage> {
                   return false;
                 },
                 child: Container(
-                  constraints: BoxConstraints(maxWidth: 1200),
+                  constraints: BoxConstraints(maxWidth: AssetDimens.appMaxWidth),
                   child: widget.child,
                 ),
               ),

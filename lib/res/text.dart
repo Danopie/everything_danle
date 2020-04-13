@@ -7,6 +7,7 @@ class TextStyles {
 
 extension TextWeight on TextStyle {
   TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
+  TextStyle get superBold => copyWith(fontWeight: FontWeight.w900);
   TextStyle get medium => copyWith(fontWeight: FontWeight.w500);
   TextStyle get normal => copyWith(fontWeight: FontWeight.normal);
 }
@@ -17,4 +18,8 @@ extension TextColor on TextStyle {
 
 extension TextSize on TextStyle {
   TextStyle s(double size) => copyWith(fontSize: size);
+}
+
+extension TextDecorationExt on TextStyle {
+  TextStyle get underline => copyWith(decoration: TextDecoration.underline);
 }

@@ -31,6 +31,7 @@ dependencies:
   flutter_lorem: ^1.1.0
   google_fonts: ^0.4.0
   flutter_markdown: ^0.3.4
+  animated_text_kit: ^2.0.0
 
 dev_dependencies:
   flutter_test:

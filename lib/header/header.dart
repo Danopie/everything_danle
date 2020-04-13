@@ -2,73 +2,86 @@ import 'package:everything_danle/res/text.dart';
 import 'package:flutter/material.dart';
 
 class AppHeader extends StatelessWidget {
+  static const double HEIGHT = 60;
   final bool hasShadow;
 
   const AppHeader({Key key, this.hasShadow}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: hasShadow
-              ? [
-                  BoxShadow(
-                      color: Colors.black26, spreadRadius: 4, blurRadius: 4)
-                ]
-              : null),
-      padding: EdgeInsets.all(12),
-      duration: Duration(milliseconds: 250),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          MyLogo(),
-          Expanded(
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final items = [
-                  "Home",
-                  "Blog",
-                  "Resume",
-                  "Projects",
-                  "About",
-                ];
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        AnimatedContainer(
+          height: HEIGHT,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: hasShadow
+                  ? [
+                      BoxShadow(
+                          color: Colors.black26, spreadRadius: 4, blurRadius: 4)
+                    ]
+                  : null),
+          duration: Duration(milliseconds: 250),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(12, 4, 12, 8),
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 1200),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MyLogo(),
+                Expanded(
+                  child: LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) {
+                      final items = [
+                        "Home",
+                        "Blog",
+                        "Resume",
+                        "Projects",
+                        "About",
+                      ];
 
-                final canShowAllActions =
-                    constraints.maxWidth > HeaderAction.WIDTH * items.length;
+                      final canShowAllActions = constraints.maxWidth >
+                          HeaderAction.WIDTH * items.length;
 
-                if (canShowAllActions) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: items
-                        .map((e) => HeaderAction(
-                              title: e,
-                            ))
-                        .toList(),
-                  );
-                } else {
-                  return Container(
-                    alignment: Alignment.centerRight,
-                    child: PopupMenuButton(
-                      icon: Icon(Icons.menu),
-                      itemBuilder: (BuildContext context) {
-                        return items
-                            .map((e) => PopupMenuItem(
-                                  child: Text(
-                                    e,
-                                    style: TextStyles.text.medium.s(16),
-                                  ),
-                                ))
-                            .toList();
-                      },
-                    ),
-                  );
-                }
-              },
+                      if (canShowAllActions) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: items
+                              .map((e) => HeaderAction(
+                                    title: e,
+                                  ))
+                              .toList(),
+                        );
+                      } else {
+                        return Container(
+                          alignment: Alignment.centerRight,
+                          child: PopupMenuButton(
+                            icon: Icon(Icons.menu),
+                            itemBuilder: (BuildContext context) {
+                              return items
+                                  .map((e) => PopupMenuItem(
+                                        child: Text(
+                                          e,
+                                          style: TextStyles.text.medium.s(16),
+                                        ),
+                                      ))
+                                  .toList();
+                            },
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
+          ),
+        ),
+      ],
     );
   }
 }

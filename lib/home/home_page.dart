@@ -4,10 +4,7 @@ import 'package:everything_danle/header/header.dart';
 import 'package:everything_danle/res/links.dart';
 import 'package:everything_danle/res/text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher_web/url_launcher_web.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,7 +48,6 @@ class PersonalOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (BuildContext context) {
-        print('PersonalOverview.build: ${MediaQuery.of(context).size.height}');
         if (MediaQuery.of(context).size.height > 800) {
           return Container(
             height: MediaQuery.of(context).size.height - AppHeader.HEIGHT * 2,

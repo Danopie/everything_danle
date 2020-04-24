@@ -268,7 +268,6 @@ class AboutMe extends StatelessWidget {
     "Name": "Lê Dân",
     "Date of birth": "November 11, 1996",
     "Email": "danle.sdev@gmail.com",
-    "Phone": "0844198618"
   };
 
   @override

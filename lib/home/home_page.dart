@@ -255,8 +255,6 @@ class ItemLink extends StatelessWidget {
 
 class AboutMe extends StatelessWidget {
   final infoMap = {
-    "Name": "Lê Dân",
-    "Date of birth": "November 11, 1996",
     "Email": "danle.sdev@gmail.com",
   };
 
@@ -264,76 +262,57 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 1 / 2,
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Container(
-              alignment: Alignment.topRight,
-              child: Image.asset(
-                "asset/_DSC0682.png",
-                fit: BoxFit.cover,
-              ),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              "About Me",
+              style: TextStyles.text.superBold.s(34),
             ),
           ),
           Container(
-            width: 32,
+            height: 16,
           ),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    "About Me",
-                    style: TextStyles.text.superBold.s(34),
-                  ),
+            child: Container(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.topLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: infoMap
+                      .map((key, value) => MapEntry(
+                          key,
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(bottom: 4),
+                                child: Text(
+                                  key,
+                                  style: TextStyles.text.bold.s(14),
+                                ),
+                              ),
+                              Container(
+                                child: SelectableText(
+                                  value,
+                                  style: TextStyles.text.light.s(20),
+                                ),
+                              ),
+                              Container(
+                                height: 24,
+                              ),
+                            ],
+                          )))
+                      .values
+                      .toList(),
                 ),
-                Container(
-                  height: 16,
-                ),
-                Expanded(
-                  child: Container(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.topLeft,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: infoMap
-                            .map((key, value) => MapEntry(
-                                key,
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 4),
-                                      child: Text(
-                                        key,
-                                        style: TextStyles.text.bold.s(14),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: SelectableText(
-                                        value,
-                                        style: TextStyles.text.light.s(20),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 24,
-                                    ),
-                                  ],
-                                )))
-                            .values
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                )
-              ],
+              ),
             ),
-          ),
+          )
         ],
       ),
     );

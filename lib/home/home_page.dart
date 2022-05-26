@@ -138,8 +138,7 @@ class IntroductionWords extends StatelessWidget {
         ),
         Text(
           "LÊ DÂN",
-          style: GoogleFonts.arvo(
-              textStyle: TextStyles.text.s(48)),
+          style: GoogleFonts.arvo(textStyle: TextStyles.text.s(48)),
         ),
         Container(
           height: 10,
@@ -151,8 +150,8 @@ class IntroductionWords extends StatelessWidget {
             children: <Widget>[
               Text(
                 "I'm a",
-                style: GoogleFonts.arvo(
-                    textStyle: TextStyles.text.medium.s(18)),
+                style:
+                    GoogleFonts.arvo(textStyle: TextStyles.text.medium.s(18)),
               ),
               Container(
                 width: 8,
@@ -165,7 +164,8 @@ class IntroductionWords extends StatelessWidget {
                   textStyle: GoogleFonts.arvo(
                       textStyle: TextStyles.text.bold.s(18).underline),
                   textAlign: TextAlign.start,
-                  alignment: AlignmentDirectional.topStart // or Alignment.topLeft
+                  alignment:
+                      AlignmentDirectional.topStart // or Alignment.topLeft
                   ),
             ],
           ),
@@ -214,16 +214,6 @@ class MyLinks extends StatelessWidget {
       ItemLink(
         image: "asset/linkedin.png",
         link: AssetLinks.linkedin,
-      ),
-      divider,
-      ItemLink(
-        image: "asset/instagram.png",
-        link: AssetLinks.instagram,
-      ),
-      divider,
-      ItemLink(
-        image: "asset/facebook.png",
-        link: AssetLinks.facebook,
       ),
     ];
 
